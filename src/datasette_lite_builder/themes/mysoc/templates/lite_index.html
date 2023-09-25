@@ -1,0 +1,121 @@
+{% extends 'base_lite_index.html' %}
+
+
+{% block jinja_variables %}
+{% set page_domain = "data.mysociety.org" %}
+{% set ga4_id = "G-89YJBKBNYG" %}
+{% endblock %}
+
+
+
+{% block loading_buttons %}
+{% endblock %}
+
+{% block analytics_head %}
+
+<script
+    defer>Object.defineProperty(document, "cookie", { get: function () { var t = Object.getOwnPropertyDescriptor(Document.prototype, "cookie").get.call(document); return t.trim().length > 0 && (t += "; "), t += "_ga=GA1.1." + Math.floor(1e9 * Math.random()) + "." + Math.floor(1e9 * Math.random()) }, set: function (t) { t.trim().startsWith("_ga") || Object.getOwnPropertyDescriptor(Document.prototype, "cookie").set.call(document, t) } });</script>
+<script defer src="https://www.googletagmanager.com/gtag/js?id={{ ga4_id }}"></script>
+<script>
+    var client_id = Math.floor(Math.random() * 1000000000) + '.' + Math.floor(Math.random() * 1000000000);
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-89YJBKBNYG', { 'client_id': client_id, 'cookie_expires': 1, 'send_page_view': false });
+</script>
+
+{% endblock analytics_head %}
+
+{% block analytics_script %}
+<script>
+
+    function getUseAnalytics() {
+        return (location.hostname == "{{ site_domain }}") && (new URLSearchParams(location.search).get('analytics') != 'off');
+    }
+
+    function registerHomePageView() {
+        gtag('event', 'page_view', {
+            page_title: document.title,
+            page_location: window.href
+        });
+    }
+
+    function registerPageView(href) {
+        gtag('event', 'page_view', {
+            page_title: document.title,
+            page_location: href.replace('?', '').replace('#', '/')
+        });
+    }
+
+</script>
+{% endblock analytics_script %}
+
+{% block css_head %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;700&display=swap" rel="stylesheet">
+<style>
+    h1,
+    p,
+    textarea {
+        font-family: 'Source Sans 3', sans-serif;
+    }
+
+    #loading-logs {
+        display: none;
+    }
+
+    #loading-header {
+        text-align: center;
+    }
+</style>
+{% endblock %}
+
+
+{% block above_loading %}
+<h1 id="loading-header">Loading Datasette</h1>
+
+{% endblock above_loading %}
+
+{% block above_textarea %}
+<p>Preparing the data will take a few moments.</p>
+<p id="repo-info"></p>
+{% endblock above_textarea %}
+
+  {% block default_metadata %}
+  <script>
+    processedParams.default_metadata = {
+      "about": "Datasette Explorer",
+      "about_url": "https://github.com/simonw/datasette-lite",
+      "extra_css_urls": [
+      "/css/mysoc.css"
+      ]
+    }
+  </script>
+  {% endblock %}
+
+
+{% block post_params %}
+
+<script>
+    // mysoc param is repo, package, version seperated by a slash
+
+    mysocParam = urlParams.get('mysoc');
+    if (mysocParam) {
+        console.log("processing mysoc data")
+        var [repo, package_name, version] = mysocParam.split('/');
+        mysocUrl = `https://pages.mysociety.org/${repo}/data/${package_name}/${version}/${package_name}.sqlite`;
+        datapackageUrl = `https://pages.mysociety.org/${repo}/data/${package_name}/${version}/datapackage.json`;
+        processedParams.initialUrl = mysocUrl;
+        processedParams.metadataUrl = datapackageUrl;
+        // set repo into
+        document.getElementById("repo-info").innerHTML = `${repo} - ${package_name} - ${version}`;
+        // if no or empty hash, set to package_name
+        if (!location.hash) {
+            location.hash = package_name;
+        }
+    }
+
+</script>
+
+{% endblock post_params %}

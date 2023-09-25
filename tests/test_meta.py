@@ -3,7 +3,7 @@ Run meta tests on package (apply to muliple packages)
 
 """
 from pathlib import Path
-import datasettelite_builder as package
+import datasette_lite_builder as package
 import toml
 
 
