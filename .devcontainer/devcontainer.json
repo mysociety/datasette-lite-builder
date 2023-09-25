@@ -1,5 +1,5 @@
 {
-	"name": "{{cookiecutter.underscored}}",
+	"name": "datasettelite_builder",
 	"build": {
 		"dockerfile": "../Dockerfile"
 	},

@@ -1,4 +1,4 @@
-import {{cookiecutter.underscored}} as package
+import datasettelite_builder as package
 
 
 def test_true_is_true():
