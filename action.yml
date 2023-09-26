@@ -1,0 +1,35 @@
+name: 'Render Datasette Lite'
+description: 'Render datasette lite from template filder'
+version: 0.1.0
+inputs:
+  theme: 
+    description: 'inbuilt theme'
+    default: 'default'
+  publish_dir:
+    description: 'directory to publish to'
+    default: 'docs'
+  config_dir:
+    description: 'Directory in repo to take config from'
+    default: ''
+runs:
+  using: "composite"
+
+  steps:
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.9"
+      - name: Install dependencies
+        shell: bash
+        run: |
+          poetry install -v --directory=${{github.action_path}}
+      - name: Render Datasette Lite
+        shell: bash
+        run: |
+          source $(poetry env info --directory=${{github.action_path}} --path)/bin/activate
+          python -m datasette_lite_builder build \
+          --theme=${{inputs.theme}} \
+          --output-dir=${{inputs.publish_dir}} \
+          --config-dir=${{inputs.config_dir}}
