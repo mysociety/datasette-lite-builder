@@ -1,15 +1,17 @@
 name: 'Render Datasette Lite'
-description: 'Render datasette lite from template filder'
+description: |
+  Render datasette lite from template folder or theme.
+  If given, config_dir preferred to theme.
 version: 0.1.0
 inputs:
   theme: 
-    description: 'inbuilt theme'
+    description: 'Inbuilt theme'
     default: 'default'
   publish_dir:
-    description: 'directory to publish to'
+    description: 'Directory in repo to publish to.'
     default: 'docs'
   config_dir:
-    description: 'Directory in repo to take config from'
+    description: 'Directory in repo to take config from.'
     default: ''
 runs:
   using: "composite"
