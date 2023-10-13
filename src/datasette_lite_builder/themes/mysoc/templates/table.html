@@ -21,7 +21,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container-top">
 <div style="border-color: #{{ database_color(database) }}">
     <h1>{{ metadata.get("title") or table }}{% if is_view %} (view){% endif %}{% if private %} 🔒{% endif %}</h1>
     {% set links = table_actions() %}{% if links %}

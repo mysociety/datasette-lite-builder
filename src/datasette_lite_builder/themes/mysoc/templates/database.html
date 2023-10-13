@@ -92,9 +92,6 @@
     {% if table_metadata.get("description_html") %}
     <p>{{ table_metadata["description_html"] }}</p>
     {% endif %}
-    <p><em>{% for column in table.columns %}{{ column }}{% if not loop.last %}, {% endif %}{% endfor %}</em></p>
-    <p>{% if table.count is none %}Many rows{% else %}{{ "{:,}".format(table.count) }} row{% if table.count == 1 %}{%
-        else %}s{% endif %}{% endif %}</p>
 </div>
 {% endif %}
 {% endfor %}

@@ -5,6 +5,24 @@
 {% block content %}
 <div class="container">
 <h1>About</h1>
-<p>This is the about page.</p>
+<p>This site uses <a href="https://datasette.io/">Datasette</a> to explore data published by <a href="https://mysociety.org">mySociety</a>.</p>
+
+<p>The full set of information mySociety publishes can be found at <a href="https://data.mysociety.org">data.mysociety.org</a></p>
+
+<h2>Information stored in this database</h2>
+
+{% for database in databases %}
+
+<a href="{{ urls.database(database.name) }}">{{ database.name }}</a>
+<ul>
+    {% for table in database.tables_and_views_truncated %}
+    <li>
+    <a href="{{ urls.table(database.name, table.name) }}"{% if table.count %} title="{{ table.count }} rows"{% endif %}>{{ table.name }}</a>{% if table.private %} 🔒{% endif %}{% endfor %}</p>
+    </li>
+</ul>
+{% endfor %}
+
 </div>
+
+
 {% endblock %}
