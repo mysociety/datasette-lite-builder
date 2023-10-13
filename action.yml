@@ -2,7 +2,6 @@ name: 'Render Datasette Lite'
 description: |
   Render datasette lite from template folder or theme.
   If given, config_dir preferred to theme.
-version: 0.1.0
 inputs:
   theme: 
     description: 'Inbuilt theme'

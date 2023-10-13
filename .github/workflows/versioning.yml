@@ -29,15 +29,15 @@ jobs:
       - uses: ajparsons/get-config-value@fb1bb395ec07e8665c73a7b419bb44cf5cb11671 # v1.0.0
         id: get_version
         with:
-          file: 'action.yml'
-          key: 'version'
+          file: 'pyproject.toml'
+          key: 'tool.poetry.version'
 
       - name: Update git tags
         id: update_tags
         uses: ajparsons/semver-to-tag@685b3e41a5be3f5797d88ac8fc6843748421e3db # v1.0.1
         with:
           semver: ${{ steps.get_version.outputs.value }}
-          update_tags: false
+          update_tags: true
 
       - uses: ajparsons/auto-action-readme@1f153f1aa27ac190249281d31304893d433d7e6e # v1.0.1
         with:
