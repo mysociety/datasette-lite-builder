@@ -29,14 +29,16 @@ def build_webworker(dest_path: Path):
     (dest_path / "webworker.js").write_text(result)
 
 
-def get_template_folder(template_path: Path) -> dict[str, str]:
+def get_template_folder(
+    template_path: Path, ignore_static: bool = False
+) -> dict[str, str]:
     """
     iteratively, for all files in template_path, create a dictionary of path to contents
     """
     result = {}
     static_dir = template_path / "static"
     for path in template_path.glob("**/*"):
-        if "static" in path.parts:
+        if "static" in path.parts and ignore_static:
             continue
 
         if path.is_file():
@@ -59,8 +61,7 @@ def build_index(dest_path: Path, customisation_path: Path):
         index_template = env.get_template("base_lite_index.html")
 
     lite_config = get_template_folder(lite_config_path)
-    custom_files = get_template_folder(customisation_path)
-
+    custom_files = get_template_folder(customisation_path, ignore_static=True)
     files_to_transfer = {**lite_config, **custom_files}
     context = {
         "config_static": files_to_transfer,
