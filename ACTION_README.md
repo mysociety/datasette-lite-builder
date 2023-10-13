@@ -1,7 +1,5 @@
 # Render Datasette Lite
 
-Version: 0.1.0
-
 Render datasette lite from template folder or theme.
 If given, config_dir preferred to theme.
 
