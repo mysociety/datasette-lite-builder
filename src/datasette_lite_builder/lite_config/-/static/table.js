@@ -245,6 +245,7 @@ var DROPDOWN_ICON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="14" heig
         var a = document.createElement("a");
         a.setAttribute("href", "#");
         a.setAttribute("aria-label", "Remove this filter");
+        a.setAttribute("class", "filter-remove");
         a.style.textDecoration = "none";
         a.innerText = x;
         a.addEventListener("click", (ev) => {

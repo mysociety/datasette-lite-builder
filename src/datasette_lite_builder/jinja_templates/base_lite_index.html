@@ -343,6 +343,11 @@
     output.addEventListener('click', (ev => {
       var link = ev.srcElement.closest("a");
       if (link && link.href) {
+        // if link has a class 'filter-remove' quit out here 
+        // and let the filter remove handler take over
+        if (link.classList.contains('filter-remove')) {
+          return;
+        }
         ev.stopPropagation();
         ev.preventDefault();
         if (isFragmentLink(link.href)) {
