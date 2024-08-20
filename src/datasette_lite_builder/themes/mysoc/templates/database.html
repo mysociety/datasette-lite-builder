@@ -82,7 +82,7 @@
 {% set column_count = table.columns|count %}
 {% set _ = table.__setitem__("column_count", column_count) %}
 {% endfor %}
-{% for table in tables|sort(attribute="column_count", reverse = True) %}
+{% for table in tables %}
 {% if show_hidden or not table.hidden %}
 <div class="db-table">
     {% set table_metadata = metadata.get("tables", {}).get(table.name, {}) %}
