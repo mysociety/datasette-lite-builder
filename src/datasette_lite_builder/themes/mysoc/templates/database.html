@@ -79,10 +79,11 @@
 <h3 id="tables">Tables</h3>
 {% endif %}
 {% for table in tables %}
-{% set column_count = table.columns|count %}
-{% set _ = table.__setitem__("column_count", column_count) %}
+    {% set table_metadata = metadata.get("tables", {}).get(table.name, {"dataset_order": 999}) %}
+    {% set dataset_order = table_metadata.get("dataset_order", loop.index0) %}
+    {% set _ = table.__setitem__("dataset_order", dataset_order) %}
 {% endfor %}
-{% for table in tables %}
+    {% for table in tables|sort(attribute="dataset_order") %}
 {% if show_hidden or not table.hidden %}
 <div class="db-table">
     {% set table_metadata = metadata.get("tables", {}).get(table.name, {}) %}

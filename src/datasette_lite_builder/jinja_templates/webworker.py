@@ -103,6 +103,8 @@ def datapackage_to_metadata(datapackage: dict) -> dict:
             "description_html": description_html,
             "columns": columns,
         }
+        if "dataset_order" in resource.get("custom", {}):
+            table_data["dataset_order"] = resource["custom"]["dataset_order"]
         table_data.update(custom_table)
         return resource_name, table_data
 
